@@ -1,0 +1,19 @@
+name: Image Resizer
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+inputs:
+  image-path:
+    description: 'Path to the source image'
+    required: true
+  sizes:
+    description: 'Comma-separated pixel widths'
+    required: true
+  output-dir:
+    description: 'Directory to write resized images'
+    required: true
+  crop:
+    description: 'Center crop instead of padding'
+    required: false
+    default: 'false'
+outputs: {}

@@ -1,19 +1,22 @@
-name: Image Resizer
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+name: "Image Resizer"
+description: "Resize all images in a folder to specified widths, preserving aspect ratio."
+author: "Elar Saks"
+
 inputs:
-  image-path:
-    description: 'Path to the source image'
+  source-dir:
+    description: "Directory containing original images"
     required: true
   sizes:
-    description: 'Comma-separated pixel widths'
+    description: "Comma-separated list of widths to generate (e.g. 64,128,256)"
     required: true
   output-dir:
-    description: 'Directory to write resized images'
+    description: "Directory where resized images will be written"
     required: true
-  crop:
-    description: 'Center crop instead of padding'
-    required: false
-    default: 'false'
-outputs: {}
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - --source-dir=${{ inputs.source-dir }}
+    - --sizes=${{ inputs.sizes }}
+    - --output-dir=${{ inputs.output-dir }}

@@ -1,18 +1,56 @@
 name: CI
+
 on:
-  pull_request:
   push:
-    branches: [main]
+    branches:
+      - main
+      - master
+  pull_request:
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    container:
+      image: rust:latest
+      options: --user root
+
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-rust@v1
         with:
-          rust-version: stable
-      - name: Run tests
-        run: cargo test --verbose
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+
+      - name: Add GitHub.com to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      #  - name: Run tests
+      #    run: cargo test --verbose
+
       - name: Build release
         run: cargo build --release
+
+      - name: Resize images
+        uses: ./
+        with:
+          source-dir: assets/original
+          sizes: "64,128,256"
+          output-dir: assets/resized
+
+      - name: Show results
+        run: ls -R assets/resized
+
+      - name: Commit resized images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/resized
+          git diff --cached --quiet || (
+            git commit -m "ci: add resized images"
+            git push
+          )

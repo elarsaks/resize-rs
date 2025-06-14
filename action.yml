@@ -1,6 +1,10 @@
-name: "Image Resizer"
-description: "Resize all images in a folder to specified widths, preserving aspect ratio."
+name: "Image Resizer RS"
+description: "Resize all images from the source directory that do not exist in the target directory to the specified widths—skipping already processed files and preserving the aspect ratio."
 author: "Elar Saks"
+
+branding:
+  icon: "image"
+  color: "blue"
 
 inputs:
   source-dir:

@@ -29,7 +29,7 @@ jobs:
 
       # 3. Run the custom resize action
       - name: Resize images
-        uses: elarsaks/resize-rs@v0.1.0
+        uses: elarsaks/resize-rs@v0.1.1
         with:
           source-dir: assets/original # Source directory of original images
           sizes: "64,128,256" # Target resize dimensions

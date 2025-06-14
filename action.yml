@@ -1,5 +1,5 @@
 name: "Image Resizer RS"
-description: "Resize all images from the source directory that do not exist in the target directory to the specified widths—skipping already processed files and preserving the aspect ratio."
+description: "Batch-resize images in a directory to given widths, skipping existing ones and preserving aspect ratio."
 author: "Elar Saks"
 
 branding:

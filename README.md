@@ -8,19 +8,6 @@
 
 In your workflow, reference this action and supply the folder of source images, desired widths, and an output folder:
 
-
-## 🔧 Inputs
-
-| Input        | Description                                 | Required | Default |
-|--------------|---------------------------------------------|:--------:|:-------:|
-| `source-dir` | Directory containing original images        |   true   |    —    |
-| `sizes`      | Comma-separated list of target widths (px)  |   true   |    —    |
-| `output-dir` | Directory where resized images will be saved|   true   |    —    |
-
-## 🛠️ Outputs
-
-This action does not set output parameters. It writes resized files into `output-dir`.
-
 ## [📖 Example Workflow ](https://github.com/elarsaks/resize-rs/blob/master/.github/workflows/resize-images.yml)
 
 ```yaml
@@ -71,6 +58,19 @@ jobs:
           )
 
 ```  
+
+## 🔧 Inputs
+
+| Input        | Description                                 | Required | Default |
+|--------------|---------------------------------------------|:--------:|:-------:|
+| `source-dir` | Directory containing original images        |   true   |    —    |
+| `sizes`      | Comma-separated list of target widths (px)  |   true   |    —    |
+| `output-dir` | Directory where resized images will be saved|   true   |    —    |
+
+## 🛠️ Outputs
+
+It writes resized files into `output-dir`.
+
 
 ## 📄 License
 

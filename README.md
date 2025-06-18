@@ -2,7 +2,7 @@
 
 > A fast, Rust-powered GitHub Action to batch-resize images by width while preserving aspect ratio.
 
-![GitHub Actions](https://github.com/elarsaks/resize-rs/workflows/CI/badge.svg)
+![CI Status](https://github.com/elarsaks/resize-rs/actions/workflows/ci.yml/badge.svg)
 
 ## 📦 Usage
 

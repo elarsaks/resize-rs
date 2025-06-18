@@ -7,8 +7,6 @@
 ## 🎨 Example Output
 
 <div align="center">
-  <img src="assets/original/test-image.png" alt="Original image" width="512"/>
-  <span style="font-size:2rem;margin:0 0.5em;">&#8594;</span>
   <img src="assets/resized/test-image-256.png" alt="256 px" width="256"/>
   <img src="assets/resized/test-image-128.png" alt="128 px" width="128"/>
   <img src="assets/resized/test-image-64.png" alt="64 px" width="64"/>

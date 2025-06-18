@@ -1,3 +1,4 @@
+#![deny(clippy::unwrap_used)]
 use std::{
     fs,
     path::{Path, PathBuf},
@@ -82,9 +83,7 @@ fn parse_sizes(s: &str) -> Result<Vec<u32>> {
         if part.is_empty() {
             continue;
         }
-        let value: u32 = part
-            .parse()
-            .with_context(|| format!("invalid size '{}'", part))?;
+        let value: u32 = part.parse().with_context(|| format!("invalid size '{}'", part))?;
         if !out.contains(&value) {
             out.push(value);
         }
@@ -97,28 +96,15 @@ fn process_size(img: &DynamicImage, src_path: &Path, out_dir: &Path, size: u32) 
     let new_h = (h as f32 * size as f32 / w as f32).round() as u32;
     let resized = imageops::resize(img, size, new_h, imageops::FilterType::Lanczos3);
 
-    let base = src_path
-        .file_stem()
-        .and_then(|s| s.to_str())
-        .unwrap_or("out");
-    let ext = src_path
-        .extension()
-        .and_then(|s| s.to_str())
-        .unwrap_or("png");
+    let base = src_path.file_stem().and_then(|s| s.to_str()).unwrap_or("out");
+    let ext = src_path.extension().and_then(|s| s.to_str()).unwrap_or("png");
     let out_path = out_dir.join(format!("{}-{}{}.{}", base, size, "", ext));
     if out_path.exists() {
         info!("Skipping {}, already exists", out_path.display());
         return Ok(());
     }
-    resized
-        .save(&out_path)
-        .with_context(|| format!("saving {}", out_path.display()))?;
-    info!(
-        "Resized {} to width {} -> {}",
-        src_path.display(),
-        size,
-        out_path.display()
-    );
+    resized.save(&out_path).with_context(|| format!("saving {}", out_path.display()))?;
+    info!("Resized {} to width {} -> {}", src_path.display(), size, out_path.display());
     Ok(())
 }
 
@@ -128,26 +114,26 @@ mod tests {
 
     #[test]
     fn parse_sizes_basic() {
-        let sizes = parse_sizes("64,128, 64").unwrap();
+        let sizes = parse_sizes("64,128, 64").expect("valid size list");
         assert_eq!(sizes, vec![64, 128]);
     }
 
     #[test]
     fn validate_supported() {
-        let dir = tempfile::tempdir().unwrap();
+        let dir = tempfile::tempdir().expect("create temp dir");
         let file = dir.path().join("a.txt");
-        fs::write(&file, "hi").unwrap();
+        fs::write(&file, "hi").expect("write test file");
         assert!(ensure_supported(&file).is_err());
     }
 
     #[test]
     fn resize_basic() {
-        let tmp = tempfile::tempdir().unwrap();
+        let tmp = tempfile::tempdir().expect("create temp dir");
         let src_path = tmp.path().join("test.png");
-        DynamicImage::new_rgb8(8, 8).save(&src_path).unwrap();
-        let img = load_image(&src_path).unwrap();
-        let out_dir = tempfile::tempdir().unwrap();
-        process_size(&img, &src_path, out_dir.path(), 4).unwrap();
+        DynamicImage::new_rgb8(8, 8).save(&src_path).expect("save source image");
+        let img = load_image(&src_path).expect("load image");
+        let out_dir = tempfile::tempdir().expect("create temp dir");
+        process_size(&img, &src_path, out_dir.path(), 4).expect("resize image");
         let out = out_dir.path().join("test-4.png");
         assert!(out.exists());
     }

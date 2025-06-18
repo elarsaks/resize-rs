@@ -41,7 +41,8 @@ jobs:
         env:
           RUSTFLAGS: "-Zinstrument-coverage"
           LLVM_PROFILE_FILE: "coverage-%p-%m.profraw"
-        run: cargo test -- --nocapture
+        run: cargo +nightly test -- --nocapture
+
       - name: Generate coverage report
         run: |
           grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing -o lcov.info

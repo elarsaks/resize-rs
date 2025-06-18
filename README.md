@@ -4,6 +4,18 @@
 
 ![CI Status](https://github.com/elarsaks/resize-rs/actions/workflows/ci.yml/badge.svg)
 
+## 🎨 Example Output
+
+<div align="center">
+  <img src="assets/original/test-image.png" alt="Original image" width="512"/>
+  <span style="font-size:2rem;margin:0 0.5em;">&#8594;</span>
+  <img src="assets/resized/test-image-256.png" alt="256 px" width="256"/>
+  <img src="assets/resized/test-image-128.png" alt="128 px" width="128"/>
+  <img src="assets/resized/test-image-64.png" alt="64 px" width="64"/>
+</div>
+
+From left to right: the original image (1024&nbsp;px) is resized down to 256&nbsp;px, 128&nbsp;px, and 64&nbsp;px.
+
 ## 📦 Usage
 
 In your workflow, reference this action and supply the folder of source images, desired widths, and an output folder:

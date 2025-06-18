@@ -7,7 +7,7 @@
 
 ## 🎨 Example Output
 
-<div align="center">
+<div align="left">
   <img src="assets/resized/test-image-256.png" alt="256 px" width="256"/>
   <img src="assets/resized/test-image-128.png" alt="128 px" width="128"/>
   <img src="assets/resized/test-image-64.png" alt="64 px" width="64"/>
